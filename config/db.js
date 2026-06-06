@@ -63,7 +63,7 @@ async function initDB() {
         popularity_score    DECIMAL(10,4) DEFAULT 0,
         -- Timestamps
         created_at   DATETIME,           -- when the GitHub account was created
-        analyzed_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        analyzed_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )
     `);
 
