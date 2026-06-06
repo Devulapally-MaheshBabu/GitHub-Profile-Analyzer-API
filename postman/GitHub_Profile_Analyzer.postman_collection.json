@@ -1,0 +1,125 @@
+{
+  "info": {
+    "name": "GitHub Profile Analyzer API",
+    "_postman_id": "github-profile-analyzer-collection",
+    "description": "REST API collection for the GitHub Profile Analyzer.\n\nSet the `baseUrl` variable to your server address before running.\n\nDefault: http://localhost:3000",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Verifies the server is running."
+      }
+    },
+    {
+      "name": "API Welcome",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": ["{{baseUrl}}"],
+          "path": [""]
+        },
+        "description": "Returns the list of available endpoints."
+      }
+    },
+    {
+      "name": "Analyze & Save Profile – octocat",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles/analyze/octocat",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "profiles", "analyze", "octocat"]
+        },
+        "description": "Fetches GitHub public profile for 'octocat', computes insights, and stores it in MySQL."
+      }
+    },
+    {
+      "name": "Analyze & Save Profile – torvalds",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles/analyze/torvalds",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "profiles", "analyze", "torvalds"]
+        },
+        "description": "Analyse Linus Torvalds' GitHub profile."
+      }
+    },
+    {
+      "name": "Analyze & Save Profile – invalid user (404)",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles/analyze/this-user-does-not-exist-xyz123",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "profiles", "analyze", "this-user-does-not-exist-xyz123"]
+        },
+        "description": "Should return a 404 error from the GitHub API."
+      }
+    },
+    {
+      "name": "Analyze & Save Profile – bad username (400)",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles/analyze/--invalid--",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "profiles", "analyze", "--invalid--"]
+        },
+        "description": "Should return a 400 validation error."
+      }
+    },
+    {
+      "name": "Get All Profiles",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "profiles"]
+        },
+        "description": "Returns all profiles stored in the database."
+      }
+    },
+    {
+      "name": "Get Single Profile – octocat",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles/octocat",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "profiles", "octocat"]
+        },
+        "description": "Retrieves the stored profile for 'octocat' including top repositories and insights."
+      }
+    },
+    {
+      "name": "Get Single Profile – not in DB (404)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles/never-analyzed",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "profiles", "never-analyzed"]
+        },
+        "description": "Should return a 404 because this username hasn't been analysed yet."
+      }
+    }
+  ]
+}
