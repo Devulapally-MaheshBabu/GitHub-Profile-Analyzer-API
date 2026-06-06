@@ -62,7 +62,7 @@ async function initDB() {
         repo_follower_ratio DECIMAL(10,4) DEFAULT 0,
         popularity_score    DECIMAL(10,4) DEFAULT 0,
         -- Timestamps
-        created_at   DATETIME,           -- when the GitHub account was created
+        created_at   TIMESTAMP NULL,           -- when the GitHub account was created
         analyzed_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )
     `);
